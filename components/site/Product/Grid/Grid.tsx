@@ -48,16 +48,18 @@ const Grid = (props: Props) => {
 
   return (
     <div className="mt-4">
-      <div className="flex flex-col rounded-md w-full px-3 items-center">
-        <div className="font-bold text-lg text-start text-red-900 pl-1">
-          Search Product
+      {isMounted && (
+        <div className="flex flex-col rounded-md w-full px-3 items-center">
+          <div className="font-bold text-lg text-start text-red-900 pl-1">
+            Search Product
+          </div>
+          <InputBox
+            placeholder="Foam Roller"
+            setValue={handleFilterChange}
+            value={filter}
+          />
         </div>
-        <InputBox
-          placeholder="Foam Roller"
-          setValue={handleFilterChange}
-          value={filter}
-        />
-      </div>
+      )}
       <div>
         <div className="w-full grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
           {products &&
