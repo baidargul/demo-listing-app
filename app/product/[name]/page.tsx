@@ -1,14 +1,16 @@
 import Tag from "@/components/site/Product/Tag";
 import { products, ProductType } from "@/libs/Storage";
-import { SERVER, SERVER_RESPONSE } from "@/serverActions/backend/SERVER";
 import React from "react";
 
+// Define Props without wrapping it in a Promise
 type Props = {
-  params: { name: string };
+  params: Promise<{ name: string }>;
 };
 
-const page = (props: Props) => {
-  const product = decodeURIComponent(props.params.name);
+const page = async (props: Props) => {
+  // Await params to handle the promise within the component
+  const { name } = await props.params;
+  const product = decodeURIComponent(name);
 
   let item: ProductType[] | ProductType = products.filter(
     (item) => item.name === product
@@ -64,12 +66,12 @@ const page = (props: Props) => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <a href="/">
-              <div className="p-1 w-full hover:bg-gradient-to-t hover:from-red-900 hover:to-red-800 bg-red-900 text-white cursor-pointer transition-all duration-500 border group-hover:border-zinc-200 border-transparent rounded  text-center">
+              <div className="p-1 w-full hover:bg-gradient-to-t hover:from-red-900 hover:to-red-800 bg-red-900 text-white cursor-pointer transition-all duration-500 border group-hover:border-zinc-200 border-transparent rounded text-center">
                 Go Back
               </div>
             </a>
             <a href="/">
-              <div className="p-1 w-full hover:bg-gradient-to-t hover:from-zinc-200 hover:to-zinc-50 bg-red-100/50 cursor-pointer transition-all duration-500 border group-hover:border-zinc-200 border-transparent rounded  text-center">
+              <div className="p-1 w-full hover:bg-gradient-to-t hover:from-zinc-200 hover:to-zinc-50 bg-red-100/50 cursor-pointer transition-all duration-500 border group-hover:border-zinc-200 border-transparent rounded text-center">
                 Homepage
               </div>
             </a>
